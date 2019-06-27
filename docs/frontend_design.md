@@ -70,6 +70,49 @@ src:
 
 ### 2. 函数式组件编程
 
+使用函数来开发组件已经渐渐地成为了越来越多React开发者的选择。得益于 Hooks 功能，函数组件也能实现近似类组件一样的生命周期功能和React状态控制，使用Hooks已经渐渐地成为了一种编程范式。我们搭配Hooks功能，使用函数式组件开发，能够有效降低组件的状态复杂度，便于组件的解耦和组织。
+
+在本次项目，同样也使用了函数式组件的开发理念，搭配常用的Hooks函数如useState，useEffect，帮助我们快速开发应用。
+
+以下给出几个使用函数式组件开发的例子，加以说明。
+
+```javascript
+function ShortAnswerCard(props) {
+  const { classes, content, warning, callback } = props;
+  const [input, setInput] = React.useState("");
+
+  const handleChange = event => {
+    setInput(event.target.value);
+    callback(event.target.value);
+  };
+
+  let error = input === "" && warning;
+
+  return (
+    <Card className={classes.card}>
+      <CardContent>
+        <Typography className={classes.title} variant="h5" component="h2">
+          {content.title}
+        </Typography>
+        <TextField
+          id="outlined-textarea"
+          label="Answer"
+          placeholder="Placeholder"
+          multiline
+          fullWidth
+          className={classes.textField}
+          margin="normal"
+          variant="outlined"
+          onChange={handleChange}
+          error={error}
+          helperText={warning && error ? "回答不可为空" : null}
+        />
+      </CardContent>
+    </Card>
+  );
+}
+```
+
 
 
 ### 3. 容器组件和表现组件分离
