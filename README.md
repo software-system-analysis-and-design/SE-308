@@ -11,7 +11,7 @@
   * [后端部署说明](docs/backend_release.md)
 * 用户手册
 * 所有源代码
-  * [前端代码](docs/front_code.md)
+  * [前端代码](docs/fronted_code.md)
   * [后端代码](docs/backend_code.md)
 * [软件需求规格说明书(SRS)](docs/Software_Requirements_Specification.md)
 * 软件设计文档(SDS)
