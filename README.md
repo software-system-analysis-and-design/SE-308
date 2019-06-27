@@ -11,9 +11,11 @@
   * [后端部署说明](docs/backend_release.md)
 * 用户手册
 * 所有源代码
-  * [前端代码](docs/frontend_code.md)
+  * [前端代码](docs/front_code.md)
   * [后端代码](docs/backend_code.md)
-* [软件需求规格说明书(SRS)](docs/Software%20Requirements%20Specification.md)
-* [软件设计文档(SDS)](docs/SDS.md)
+* [软件需求规格说明书(SRS)](docs/Software_Requirements_Specification.md)
+* 软件设计文档(SDS)
+  * [前端设计文档](docs/frontend_design.md)
+  * [后端设计文档](docs/backend_design.md)
 * 小组分工与贡献率说明
 
