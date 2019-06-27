@@ -37,8 +37,11 @@ src
 │  ├─TaskCard：任务卡片
 │  ├─TaskContent任务内容
 │  │  └─Owner：JoshuaQYH
+<<<<<<< HEAD:docs/fronted_code.md
 │  ├─Tasks：多任务列表
 │  │  └─Owner：GitSpreed
+=======
+>>>>>>> 541ce067f78b62e87b825f4a25a5ed4c6abdeead:docs/frontend_code.md
 │  └─Typography：提示提醒
 ├─layouts：主界面
 │  ├─Admin.js：url的响应，跳转到主页相关、登录注册、不符合界面
