@@ -13,6 +13,6 @@
 * 所有源代码
   * [前端代码](docs/front_code.md)
   * [后端代码](docs/backend_code.md)
-* 软件需求规格说明书(SRS)
+* [软件需求规格说明书(SRS)](Software_Requirements_Specification.md)
 * [软件设计文档(SDS)](docs/SDS.md)
 * 小组分工与贡献率说明
