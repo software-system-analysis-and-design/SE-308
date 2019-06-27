@@ -6,7 +6,7 @@
 
 输入网址[123.207.254.239](123.207.254.239)进入**挣钱宝**，短期内未登录过默认进入登录界面。
 
-![login](https://github.com/software-system-analysis-and-design/SE-308/raw/master/docs/assets/User manual/登录.png)
+![login](https://github.com/software-system-analysis-and-design/SE-308/raw/master/docs/assets/User%20manual/登录.png)
 
 若注册过账户，则输入账户（手机号）和密码即可进入项目界面。
 
