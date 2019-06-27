@@ -1,5 +1,9 @@
 # 后端源代码
 
+> 主要负责人：邱晓裕
+>
+> 审核人：邱奕浩，蒲其刚，邵梓硕
+
 项目地址：[zhengqianbao-server](https://github.com/software-system-analysis-and-design/zhengqianbao-server)
 
 代码说明：

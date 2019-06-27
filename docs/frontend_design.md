@@ -29,12 +29,7 @@
 
 项目的架构设计如下图所示，该项目使用经典的CS架构，使用Nginx进行反向代理，提供网页文件服务，并使用多个dockers运行后台程序，docker与数据库之间进行数据交互，可以很方便提高服务器的抗压能力、性能。
 
-
-
 ![](https://raw.githubusercontent.com/JoshuaQYH/blogImage/master/img/20190627142213.png)
-
-
-
 
 
 ## 三、 模块划分
@@ -60,8 +55,6 @@ src:
 * view：子界面。依赖于下层的各个子组件，构成一个个具有交互功能的子界面。
 * component：子组件。接受view的调用，完成各个子组件行为的渲染。
 
-
-
 ## 四、软件设计技术
 
 ### 1. 面向对象编程
@@ -76,7 +69,10 @@ src:
 
 以下给出几个使用函数式组件开发的例子，加以说明。
 
+使用 useState hook函数代替类函数中的state变量，简化了编程。
+
 ```javascript
+// src/component/ShortAnswerCard/ShortAnswerCard.jsx
 function ShortAnswerCard(props) {
   const { classes, content, warning, callback } = props;
   const [input, setInput] = React.useState("");
@@ -85,8 +81,6 @@ function ShortAnswerCard(props) {
     setInput(event.target.value);
     callback(event.target.value);
   };
-
-  let error = input === "" && warning;
 
   return (
     <Card className={classes.card}>
@@ -113,9 +107,141 @@ function ShortAnswerCard(props) {
 }
 ```
 
+使用 useEffect hook 函数进行模拟类组件的生命周期函数。
+
+```javascript
+// src/view/TaskList/TaskList.jsx.... 
+function TaskList(props) {
+
+  //  模拟 componentDidMount
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const requestOptions = {
+        method: "GET"
+      };
+      fetch(apiUrl + "/questionnaire/previews", requestOptions)
+        .then(handleResponse)
+        .then(response => {
+          response = response.reverse();
+          setTaskContent(response);
+        });
+    };
+    fetchData(); // 请求数据
+  }, []);
+
+  return (
+    <div>
+      {taskContent.map(
+        item =>
+          item.inTrash !== 1 &&
+          item.creator === localStorage.getItem("userID") && (
+            <TaskContent
+              taskName={item.taskName}
+              taskID={item.taskID}
+              taskType={item.taskType}
+              money={item.money}
+            />
+          )
+      )}
+    </div>
+  );
+}
+```
+
+以上两种Hooks函数是在项目开发中常用的两个钩子，基于这两个接口函数，我们在大多数情况下可以编写像类组件一样的函数组件，简化组件的开发。
+
+使用了函数式编程的组件还有以下列表，这里不做展开赘述。
+
+```javascript
+src/view/TaskList/TaskList.jsx
+src/view/TaskList/Tasksquare.jsx
+src/view/TaskList/TaskBoard.jsx
+src/view/TaskList/TaskArray.jsx
+src/view/TaskList/QuestionPage.jsx
+src/view/TaskList/Questionnaire.jsx
+src/view/TaskList/Notification.jsx
+src/view/TaskList/CreateTask.jsx
+src/view/TaskList/Commission.jsx
+....
+src/component/*/*jsx
+```
+
 
 
 ### 3. 容器组件和表现组件分离
+
+React 组件通常包含杂合在一起的逻辑和表现。这里采用了React一种强大而简洁的模式，成为容器组件与表现组件，按照这种模式创建的组件，可以帮助我们分离逻辑和表现这两个关注点。
+
+我们通常在容器组件中定义获取数据逻辑并存储，然后通过props传递数据给表现组件，表现组件接受数据进行渲染呈现UI。在这个模式中，每个组件都被拆分成若干个小组件，每一个组件都有各自清晰的职责。
+
+这里以获取问卷页面为例。
+
+```javascript
+/// src/views/QuestionPage
+import SingleChoiceCard from "../../components/SingleChoiceCard/SingleChoiceCard";
+import MultiChoiceCard from "../../components/MultiChoiceCard/MultiChoiceCard";
+import ShortAnswerCard from "../../components/ShortAnswerCard/ShortAnswerCard";
+
+// 容器组件 QuesitonPage
+function QuestionPage(props) {
+  // ...............
+  const fetchQuestion = questionID => () => {
+    const apiUrl = "https://littlefish33.cn:8080/questionnaire/select";
+    const requestOption = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "content-type": "application/x-www-form-urlencoded"
+      },
+      body: parseParams({ id: questionID })
+    };
+
+    fetch(apiUrl, requestOption)
+      .then(handleResponse)
+      .then(response => {
+        setMoney(parseInt(response.money));
+        setQuestionData(response.chooseData);
+      });
+  };
+
+  React.useEffect(fetchQuestion(match.params.taskID), []);
+    
+  const createQuestionCard = (elem, index) => {
+      // 渲染表现组件
+      case 1:
+        content = { ...content, ["title"]: elem.title };
+        ret = (
+          <ShortAnswerCard
+            content={content}
+            warning={warning && qdata[index].required}
+            callback={setAns(index)}
+          />
+        );
+        break;
+	  // ......  其他表现组件
+    }
+    return ret;
+  };
+  return (
+    <div>
+      {qdata.map(createQuestionCard)}
+    </div>
+  );
+}
+```
+
+容器组件和表现组件分离的设计方法，在以下文件同样应用到。
+
+```javascript
+src/views/Quesionnaire/Quesionnaire.jsx
+src/views/TaskList/TaskList.jsx
+src/views/Quesionnaire/Quesionnaire.jsx
+src/views/TaskSquare/TaskSquare.jsx
+src/views/TaskArray/TaskArray.jsx
+...
+```
+
+
 
 
 
