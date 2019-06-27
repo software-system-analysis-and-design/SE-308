@@ -68,6 +68,130 @@ src:
 
 在ES6语法中，React组件开发常常使用类的形式来组织组件，以面向对象的方式来定义组件的内容和行为。
 
+在layout，view目录下都有组件以继承React.Component的类表示：
+
+``` c++
+view:
+ |--- UserProfile		//个人信息界面
+ |--- LoginPage			//登录界面
+ |--- RegisterPage		//注册界面
+ |--- DashBoard			//DashBoard界面
+
+layout:
+ |--- Admin				//主界面跳转
+```
+
+类组件主要重写render函数，返回需要在前端渲染出的html内容，根据实际要求其他组件生命周期函数。
+
+在类组件中`state`被识别为类的私有变量，在react组件的渲染，更新和扩展方面带来了很大的便利，以**LoginPage**为例：
+
+##### 初始化
+
+`state`在构造函数中初始化，我们将它视为这个页面的逻辑中所需要的一些数据或者状态量即可：
+
+``` jsx
+constructor(props) {
+    super(props);
+
+    this.state = {
+      userphone: "",		//数据
+      password: "",			//数据
+      submitted: false,		//状态量
+      responseMsg: " ",		//数据
+      user_error: false,	//状态量
+      password_error: false	//状态量
+    };
+    
+    //...
+}
+```
+
+##### 实时渲染
+
+类组件将`state`中的数据放进渲染到前端的html中去，可以实时显示数据在前端。
+
+首先在render中拿出`state`中的数据，格式为`{数据1名，数据2名，...} = this.state`:
+
+``` jsx
+render() {
+    const {
+      userphone,
+      password,
+      submitted,
+      responseMsg,
+      user_error,
+      password_error
+    } = this.state;	//可以拿到state中的所有数据和状态量
+    return (
+    	//...
+    );
+}
+```
+
+其次在组件中利用变量名即可：
+
+``` jsx
+<TextField
+    ...
+    value={userphone}				//将state中userphone显示在输入区域
+    ...
+    />
+```
+
+也可以进行逻辑判断：
+
+``` jsx
+{submitted && !userphone && (		//使用状态量进行逻辑判断
+    <div className="help-block" style={{ color: "red" }}>
+        手机号不可为空
+    </div>
+)}
+```
+
+##### 修改
+
+类组件对变量的修改使用`this.setState()`，参数必须是和`state`相同的目录结构，比如提交表单后修改状态量：
+
+``` jsx
+handleSubmit(e) {
+    e.preventDefault();
+    this.setState({ submitted: true });			//修改state中的submitted为true
+    //...
+}
+```
+
+##### 可扩展性
+
+由于数据变量使用的便利和类的特性，类组件拥有良好的可扩展性，比如可以在类中加入自定义方法，方便对组件逻辑进行模块化管理：
+
+``` jsx
+//文件位置：src/views/LoginPage/LoginPage.jsx
+class LoginPage extends React.Component{
+    
+    handleChange(e) {}
+    handleSubmit(e) {}
+    login(userphone, password) {}
+}
+```
+
+或者将数据进行结构化存入`state`中：
+
+``` jsx
+//文件位置：src/views/UserProfile/UserProfile.jsx
+this.state = {
+    ...
+    user: {
+        name: null,
+        phone: null,
+        password: null,
+        ...
+    },
+    ...
+};
+```
+
+因此对组件进行渲染和功能上的扩展都比较方便。
+
 ### 2. 函数式组件编程
 
 
@@ -78,7 +202,89 @@ src:
 
 ## 五、界面UI设计
 
+UI原型设计工具：xiaopiu
 
+UI设计展示链接：[界面UI设计](https://software-system-analysis-and-design.github.io/Dashboard/docs/index.html)
 
 ## 六、 代码编程规范
 
+### JS规范
+
+- 使用[ES 2016+ 规范](http://kangax.github.io/compat-table/es2016plus/)
+
+- 在ESLint的代码风格检查的基础上增加额外要求：
+
+  - 命名同时还需要关注语义，如：
+    - 变量名应当使用名词camel命名
+    - boolean类型的应当使用is、has等起头,表示其类型
+    - 函数名应当用动宾短语
+
+  - 永远不省略分号
+  - 组件文件和组件使用相同的名字，组件名必须避免使用Vue保留标签名（包括HTML标签和Vue内部标签）
+
+### React/JSX 规范
+
+#### 基本
+
+- 原则上每个文件只写一个组件, 多个[无状态组件](https://facebook.github.io/react/docs/reusable-components.html#stateless-functions)可以放在单个文件中. eslint: [`react/no-multi-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md#ignorestateless).
+
+- 推荐使用 JSX 语法编写 React 组件, 而不是 `React.createElement`
+
+#### 命名
+
+**扩展名**: React 组件使用 `.jsx` 扩展名
+
+- **文件名**: 文件名使用帕斯卡命名. 如, `ReservationCard.jsx`
+- **引用命名**: React组件名使用帕斯卡命名, 实例使用骆驼式命名. eslint: [`react/jsx-pascal-case`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md)
+
+- **组件命名**: 组件名与当前文件名一致. 如 `ReservationCard.jsx` 应该包含名为 `ReservationCard`的组件. 如果整个目录是一个组件, 使用 `index.js`作为入口文件, 然后直接使用 `index.js` 或者目录名作为组件的名称
+- **属性命名**: 避免使用 DOM 相关的属性来用命名自定义属性
+
+#### 代码缩进
+
+- 遵循 JSX 语法缩进/格式. eslint: [`react/jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md)
+
+#### 括号
+
+- 将多行 JSX 标签写在 `()`里. eslint: [`react/jsx-wrap-multilines`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-wrap-multilines.md)
+
+#### 标签
+
+- 对于没有子元素的标签, 总是自关闭标签. eslint: [`react/self-closing-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md)
+- 如果组件有多行的属性, 关闭标签时新建一行. eslint: [`react/jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md)
+
+#### 函数/方法
+
+- 当在 `render()` 里使用事件处理方法时, 提前在构造函数里把 `this` 绑定上去. eslint: [`react/jsx-no-bind`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)
+- 在React组件中, 不要给所谓的私有函数添加 `_` 前缀, 本质上它并不是私有的
+- 在 `render` 方法中总是确保 `return` 返回值. eslint: [`react/require-render-return`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/require-render-return.md)
+
+#### 生命周期顺序
+
+- `static` 方法（可选）
+
+- `constructor` 构造函数
+
+- `getChildContext` 获取子元素内容
+
+- `componentWillMount` 组件渲染前
+
+- `componentDidMount` 组件渲染后
+
+- `componentWillReceiveProps` 组件将接受新的数据
+
+- `shouldComponentUpdate` 判断组件是否需要重新渲染
+
+- `componentWillUpdate` 上面的方法返回 `true`时, 组件将重新渲染
+
+- `componentDidUpdate` 组件渲染结束
+
+- `componentWillUnmount` 组件将从DOM中清除, 做一些清理任务
+
+- 事件绑定 如 `onClickSubmit()` 或 `onChangeDescription()`
+
+- *render 里的 getter 方法* 如 `getSelectReason()` 或 `getFooterContent()`
+
+- *可选的 render 方法* 如 `renderNavigation()` 或 `renderProfilePicture()`
+
+- `render` render() 方法
