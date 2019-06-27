@@ -1,6 +1,7 @@
 # 前端源代码
 
 > 文档负责人：邵梓硕
+> 审核人：邱奕浩
 
 项目地址：[zhengqianbao_frontend](https://github.com/software-system-analysis-and-design/zhengqianbao_frontend)
 
