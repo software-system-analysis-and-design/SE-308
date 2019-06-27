@@ -1,37 +1,16 @@
-## Welcome to GitHub Pages
+# SE-308 作业提交
 
-You can use the [editor on GitHub](https://github.com/software-system-analysis-and-design/SE-308/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+欢迎访问文档展示页面：
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+本仓库为中山大学 2016 级软件工程，2019春季学期 软件工程综合实践课程 SE-308 的作业文档提交。使用的课程作业是2019年春季学期的 系统分析与设计课程 的课程大作业 挣钱宝。
 
-### Markdown
+下面是关于 SE-308 需要提交的文档链接整合。 部分文档因为和系统分析与设计的作业文档高度重合所以可能会直接链接过去。
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/software-system-analysis-and-design/SE-308/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+* 安装包与安装部署说明
+* 用户手册
+* 所有源代码(TODO: final tag)
+  * 前端代码
+  * 后端代码
+* 软件需求规格说明书(SRS)
+* 软件设计文档(SDS)
+* 小组分工与贡献率说明
