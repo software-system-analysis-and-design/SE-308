@@ -37,8 +37,6 @@ src
 │  ├─TaskCard：任务卡片
 │  ├─TaskContent任务内容
 │  │  └─Owner：JoshuaQYH
-│  ├─Tasks：多任务列表
-│  │  └─Owner：GitSpreed
 │  └─Typography：提示提醒
 ├─layouts：主界面
 │  ├─Admin.js：url的响应，跳转到主页相关、登录注册、不符合界面
