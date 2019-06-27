@@ -1,5 +1,7 @@
 # 前端源代码
 
+> 文档负责人：邵梓硕
+
 项目地址：[zhengqianbao_frontend](https://github.com/software-system-analysis-and-design/zhengqianbao_frontend)
 
 Owner为该代码文件的主要编写者，无特别注明Owner为引用[material Dashboard](https://www.creative-tim.com/product/material-dashboard-react-nodejs)。
