@@ -1,7 +1,7 @@
 # SE-308 作业提交
 
 > 欢迎访问文档展示页面：https://software-system-analysis-and-design.github.io/SE-308/
-> 同时欢迎访问使用我们部署的前端页面，zhengqianbao.qyhyzard.cn
+> 同时欢迎访问使用我们部署的前端页面，http://zhengqianbao.qyhyzard.cn
 
 本仓库为中山大学 2016 级软件工程，**2019春季学期 软件工程综合实践课程** SE-308 的作业文档提交。使用的课程作业是2019年春季学期的 **系统分析与设计课程** 的课程大作业 **挣钱宝**。
 
